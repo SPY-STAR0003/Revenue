@@ -1,0 +1,400 @@
+// define variables
+// --------------------------- colors
+$white: #ecf0f1;
+$light-silver: #bdc3c7;
+$silver: #95a5a6;
+$dark-silver: #7f8c8d;
+$black: #34495e;
+$dark-black: #2c3e50;
+$purple: #A63EC5;
+$dark-purple: #151D3B;
+$too-dark-purple: #313552;
+$dodger-blue: dodgerblue;
+$blue: #3498db;
+$dark-blue: #2980b9;
+$red: #e74c3c;
+$dark-red: #c0392b;
+$green: #2ecc71;
+$dark-green: #27ae60;
+
+// --------------------------- other variables
+@mixin transition($seconds : .4s) {
+  transition: $seconds;
+}
+
+// --------------------------- functions
+// 1 - padding & margin
+@for $var from 1 to 10 {
+  .mt-#{$var} {
+    margin-top: .25rem*$var;
+  }
+  .mb-#{$var} {
+    margin-bottom: .25rem*$var;
+  }
+  .mtb-#{$var} {
+    margin-top: .25rem*$var;
+    margin-bottom:.25rem*$var ;
+  }
+  .ml-#{$var} {
+    margin-left: .25rem*$var;
+  }
+  .mr-#{$var} {
+    margin-right: .25rem*$var;
+  }
+  .mrl-#{$var} {
+    margin-right: .25rem*$var;
+    margin-left: .25rem*$var;
+  }
+  .m-#{$var} {
+    margin: .25rem*$var;
+  }
+
+  .pt-#{$var} {
+    padding-top: .25rem*$var;
+  }
+  .pb-#{$var} {
+    padding-bottom: .25rem*$var;
+  }
+  .ptb-#{$var} {
+    padding-top: .25rem*$var;
+    padding-bottom:.25rem*$var ;
+  }
+  .pl-#{$var} {
+    padding-left: .25rem*$var;
+  }
+  .pr-#{$var} {
+    padding-right: .25rem*$var;
+  }
+  .prl-#{$var} {
+    padding-right: .25rem*$var;
+    padding-left: .25rem*$var;
+  }
+  .p-#{$var} {
+    padding: .25rem*$var;
+  }
+}
+// 2 - shadows
+@for $var from 1 to 10 {
+  .shadow-#{$var} {
+    box-shadow: 0 0 .1rem*$var $blue;
+  }
+}
+// 3 - font-size
+@for $var from 1 to 11 {
+  .fontsize-#{$var} {
+    font-size: .25rem*$var;
+  }
+}
+// 4 - borderRadius
+@for $var from 1 to 10 {
+  .radius-#{$var} {
+    border-radius: .25rem*$var;
+  }
+}
+// 5 - width
+$w5 :5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100;
+@each $var in $w5 {
+  .w-#{$var} {
+    width: 1%*$var;
+  }
+}
+
+// ---------------------------- basic styles
+body {
+  direction: rtl;
+}
+
+input,textarea {
+  outline: none;
+  border: none;
+  border-radius: .25rem;
+  font-family: Vazir ,serif;
+}
+
+.center-placeholder {
+  text-align: center;
+}
+
+.container {
+  margin: auto;
+  max-width: 1320px;
+  width: 100%;
+}
+
+.vazir-font {
+  font-family: Vazir , serif;
+}
+
+     // display styles ////////////////////
+.d-none {
+  display: none !important;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-center {
+  justify-content: center;
+}
+.flex-space-between {
+  justify-content: space-between;
+}
+.flex-space-around {
+  justify-content: space-around;
+}
+.flex-left {
+  justify-content: left;
+}
+.flex-right {
+  justify-content: right;
+}
+.flex-stretch {
+  justify-content: stretch;
+}
+.flex-align-center {
+  align-items: center;
+}
+
+     // text styles //////////////////////
+.text-center {
+  text-align: center;
+}
+
+.success {
+  @include transition;
+}
+
+.success:hover {
+  background-color: white;
+  color: $green;
+  transform: scaleX(1.05);
+  cursor: pointer;
+}
+
+.purple {
+   @include transition;
+ }
+
+.purple:hover {
+  background-color: white;
+  color: $purple;
+  transform: scaleX(1.05);
+  cursor: pointer;
+}
+
+.danger {
+  @include transition;
+}
+
+.danger:hover {
+  background-color: white;
+  color: $red;
+  transform: scaleX(1.05);
+  cursor: pointer;
+}
+
+.text-success {
+  color: $green;
+}
+
+.text-danger {
+  color: $red;
+}
+          // font-weight
+.bold-100 {
+  font-weight: 100;
+}
+.bold-300 {
+  font-weight: 300;
+}
+.bold-500 {
+  font-weight: 500;
+}
+.bold-700 {
+  font-weight: 700;
+}
+.bold-900 {
+  font-weight: 900;
+}
+
+        //form
+.false-input {
+  border: 1px solid $dark-red;
+  box-shadow: 0 0 10px $red;
+}
+
+.btn {
+  outline: none;
+  padding: .5rem .75rem;
+  font-family: Vazir, serif;
+  border-radius: .25rem;
+}
+
+.primaryBtn-outline {
+  border: 1px solid $dodger-blue;
+  color: $dodger-blue;
+  @include transition
+}
+
+.primaryBtn-outline:hover {
+  background-color: $dodger-blue;
+  color: white;
+  cursor: pointer;
+}
+
+.dangerBtn-outline {
+  border: 1px solid $red;
+  color: $red;
+  @include transition
+}
+
+.dangerBtn-outline:hover {
+  background-color: $red;
+  color: white;
+  cursor: pointer;
+}
+
+.dangerBtn {
+  border: 1px solid $red;
+  background-color: $red;
+  color: white;
+  @include transition
+}
+
+.dangerBtn:hover {
+  background-color: white;
+  color: $red;
+  cursor: pointer;
+}
+// ----------------------------- styles
+
+input::placeholder {
+  font-family: Vazir , serif;
+}
+
+body {
+  background-color: $too-dark-purple;
+}
+
+header {
+  div {
+    background-color: $purple;
+    color: white;
+  }
+}
+
+#input-result {
+  color: white;
+  #right {
+    background-color: $purple;
+    form {
+      input {
+        width: 50%;
+        @include transition;
+      }
+      input:focus ,{
+        width: 95%;
+      }
+      #choose-transaction-type {
+        label {
+          @include transition;
+          input {
+            position: relative;
+            top: 2px;
+          }
+        }
+        label:hover {
+          background-color: #151D3B;
+          color: white;
+          transform: scaleX(1.1);
+        }
+      }
+      button[type=submit] {
+        align-self: center;
+        outline: none;
+        border: 1px solid white;
+        font-family: Vazir, serif;
+        background-color: transparent;
+        color: white;
+        @include transition;
+      }
+      button[type=submit]:hover {
+        color: $purple;
+        background-color: white;
+        cursor: pointer;
+      }
+    }
+  }
+  #left {
+    background-color: $purple;
+    .show-totals {
+        .total {
+          letter-spacing: 2px;
+        }
+    }
+  }
+}
+
+#show-micro-account {
+  background-color: #cd70e8;
+  table {
+    color: white;
+    border-collapse: collapse;
+    tr {
+      background-color: white;
+      color: $dark-black;
+      th , td {
+        text-align: center;
+        padding: 1rem;
+      }
+    }
+    tr:nth-child(even) {
+      background-color: $white !important;
+      color: $dark-black !important;
+    }
+    tr:hover {
+      background-color: $light-silver !important;
+    }
+    th {
+      padding: 1.2rem .5rem !important;
+      background-color: $purple;
+      color: white;
+    }
+  }
+}
+
+.popup-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background-color: rgba(52,73,94,.6);
+  color: $white;
+  overflow: auto;
+  z-index: 1;
+  .popup {
+    background-color: rgba(52,73,94,.8);
+    width: 600px;
+    animation: fade .5s;
+    .popup-massage {
+      line-height: 1.5;
+    }
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

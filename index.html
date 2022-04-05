@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="fonts/font-face.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body class="container vazir-font">
+    <header>
+        <div class="mtb-4 p-4 fontsize-5 bold-500 text-center radius-2">
+            پروژه ثبت درآمد ماهیانه
+        </div>
+    </header>
+    <main class="flex-column">
+        <div id="input-result" class="flex-row flex-space-between">
+            <div id="right" class="w-70 p-3 ml-3 radius-2">
+                <form action="#" class="w-100 flex-column p-4">
+                    <div id="choose-transaction-type" class="w-100 flex-row flex-space-around flex-align-center text-center">
+                        نوع تراکنش :
+                        <label id="income-label" class="p-3 w-15 radius-2" for="income">
+                            درآمد
+                            <input type="radio" name="transaction-type" id="income" data-value="درآمد" checked>
+                        </label>
+                        <label id="cost-label" class="p-3 w-15 radius-2" for="cost">
+                            هزینه
+                            <input type="radio" name="transaction-type" id="cost" data-value="هزینه">
+                        </label>
+                    </div>
+                    <label for="price">
+                        مبلغ :
+                    </label>
+                    <input type="number" class="ptb-3 prl-3 mtb-3 radius-1" id="price" placeholder="مبلغ موردنظر خود را وارد کنید">
+                    <label class="mt-5">
+                        تاریخ :
+                    </label>
+                    <div class="flex-row flex-center">
+                        <input type="number" id="day" max="31" min="1" class="ptb-3 prl-3 mtb-3 mrl-1 center-placeholder" placeholder="روز">
+                        <input type="number" id="month" max="12" min="1" class="ptb-3 prl-3 mtb-3 mrl-1 center-placeholder" placeholder="ماه">
+                        <input type="number" id="year" min="0" class="ptb-3 prl-3 mtb-3 mrl-1 center-placeholder" placeholder="سال">
+                    </div>
+                    <label for="information" class="mt-5">
+                        توضیحات :
+                    </label>
+                    <textarea id="information" class="mt-4 p-4" cols="20" rows="4" placeholder="چنانچه توضیحی درباره مبلغ واردشده دارید در این قسمت وارد نمایید ..."></textarea>
+                    <button id="submitBtn" type="submit" class="submitBtn w-25 mtb-3 ptb-2 prl-3 text-center radius-1"> اضافه کردن مقدار جدید به لیست </button>
+                </form>
+            </div>
+            <div id="left" class="w-30 flex-column flex-align-center p-5 radius-2">
+                <div class="show-totals w-100 success flex-column flex-align-center mtb-6 pt-6 pb-1 radius-1">
+                    <div class="fontsize-3"> مجموع درآمد ماهیانه </div>
+                    <div id="total-incomes" class="mtb-4 fontsize-9 total"> -- </div>
+                </div>
+                <div class="show-totals w-100 danger flex-column flex-align-center mtb-6 pt-6 pb-1 radius-1">
+                    <div class="fontsize-3"> مجموع مخارج ماهیانه </div>
+                    <div id="total-costs" class="mtb-4 fontsize-9 total"> -- </div>
+                </div>
+                <div class="show-balance-account show-totals w-100 purple flex-column flex-align-center mtb-6 pt-6 pb-1 radius-1">
+                    <div class="fontsize-3"> باقی مانده حساب </div>
+                    <div id="balance-account" class="mtb-4 fontsize-9 total"> -- </div>
+                </div>
+            </div>
+        </div>
+        <div id="show-micro-account" class="show-micro-account w-100 p-5 mtb-3 radius-2">
+            <table id="micro-account" class="w-100">
+                <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>مبلغ</th>
+                    <th>تاریخ</th>
+                    <th>نوع تراکنش</th>
+                    <th>توضیحات</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div class="popup-background flex-column flex-center flex-align-center">
+        <div class="popup flex-column flex-center flex-align-center pt-8 pb-5 prl-5 radius-1">
+            <div class="popup-massage mb-6 text-center">
+                این یک پیام برای سنجیدن کاربرد این پاپ آپ است
+            </div>
+            <button class="btn dangerBtn">
+                بستن این پنجره
+            </button>
+        </div>
+    </div>
+</body>
+</html>
