@@ -30,6 +30,9 @@ let listItem;
 
 // get list from localStorage
 let getListFromLocal = () => {
+    if (localStorage.getItem("listItems") === null) {
+        return;
+    }
     list = JSON.parse(localStorage.getItem("listItems"))
     if (list !== null) {
         list.forEach(item => {
