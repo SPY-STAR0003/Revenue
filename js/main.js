@@ -19,7 +19,7 @@ const showPrice = document.querySelector(".showPrice .variable")
 
 // define parameters
 
-let list = [];
+let transactionsList = [];
 let i = 0;
 let typeClass = "text-success";
 let type = "درآمد";
@@ -63,24 +63,24 @@ priceInput.addEventListener("blur" , () => {
     }
 })
 
-// get list from localStorage
+// get transactionsList from localStorage
 window.onload = () => {
     if (localStorage.getItem("Revenue_info") === null) {
         return;
     }
-    list = JSON.parse(localStorage.getItem("Revenue_info"))
-    if (list !== null) {
-        list.forEach(item => {
+    transactionsList = JSON.parse(localStorage.getItem("Revenue_info"))
+    if (transactionsList !== null) {
+        transactionsList.forEach(item => {
             makeTable(item)
         })
-        i = list.length
-        totals(list)
+        i = transactionsList.length
+        totals(transactionsList)
     }
 }
 
 // Update the localStorage
-let updateLocalstorage = list => {
-    localStorage.setItem("Revenue_info" , JSON.stringify(list))
+let updateLocalstorage = ltransactionsListist => {
+    localStorage.setItem("Revenue_info" , JSON.stringify(transactionsList))
 }
 
 // check values Function & make Inputs Empty
@@ -119,7 +119,7 @@ let checkValues = () => {
 }
 
 
-// make list items
+// make transactionsList items
 let makeList = () => {
     if (checkValues()) {
         return false;
@@ -131,11 +131,11 @@ let makeList = () => {
         type,
         info : informationInput.value
     }
-    list.push(listItem)
+    transactionsList.push(listItem)
     makeTable(listItem)
-    totals(list)
+    totals(transactionsList)
     makeInputsEmpty()
-    updateLocalstorage(list)
+    updateLocalstorage(transactionsList)
 }
 
 // make table rows
@@ -177,33 +177,33 @@ let showInfo = e => {
 // Functions for delete Rows
 let deleteItem = e => {
     let itemNumber;
-    list.forEach(item => {
+    transactionsList.forEach(item => {
         if (item.numberItem === Number(e.target.parentElement.parentElement.id)) {
             itemNumber = item.numberItem;
-            list = list.filter(row => row.numberItem !== Number(e.target.parentElement.parentElement.id))
+            transactionsList = transactionsList.filter(row => row.numberItem !== Number(e.target.parentElement.parentElement.id))
         }
     })
-    updateList(list,itemNumber)
+    updateList(transactionsList,itemNumber)
 }
 
-let updateList = (list , itemNumber) => {
+let updateList = (transactionsList , itemNumber) => {
     tableBody.innerHTML = "";
     --i;
-    list.forEach(item => {
+    transactionsList.forEach(item => {
         if (item.numberItem >= itemNumber) {
             item.numberItem = item.numberItem - 1;
         }
         makeTable(item)
     })
-    totals(list)
-    updateLocalstorage(list)
+    totals(transactionsList)
+    updateLocalstorage(transactionsList)
 }
 
 // insert total incomes & costs & balance
-let totals = list => {
+let totals = transactionsList => {
     let totalInComes = 0;
     let totalCosts = 0;
-    list.forEach(item => {
+    transactionsList.forEach(item => {
         if (item.type === "درآمد") {
             totalInComes += Number(item.price);
         } else {
