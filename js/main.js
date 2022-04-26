@@ -1,7 +1,3 @@
-// متاسفانه من فراموش کردم که مرحله به مرحله پروژه را داخل گیت هاب قرار دهم
-// برای همین پروژه را یکجا داخل گیت هاب قرار دادم
-
-
 // define items
 let submitBtn = document.querySelector(".submitBtn");
 let inputs = document.querySelectorAll("input[type=number]")
@@ -29,11 +25,11 @@ let type = "درآمد";
 let listItem;
 
 // get list from localStorage
-let getListFromLocal = () => {
-    if (localStorage.getItem("listItems") === null) {
+window.onload = () => {
+    if (localStorage.getItem("Revenue_info") === null) {
         return;
     }
-    list = JSON.parse(localStorage.getItem("listItems"))
+    list = JSON.parse(localStorage.getItem("Revenue_info"))
     if (list !== null) {
         list.forEach(item => {
             makeTable(item)
@@ -43,13 +39,12 @@ let getListFromLocal = () => {
     }
 }
 
-// // Update the localStorage
+// Update the localStorage
 let updateLocalstorage = list => {
-    localStorage.setItem("listItems" , JSON.stringify(list))
+    localStorage.setItem("Revenue_info" , JSON.stringify(list))
 }
 
 // check values Function & make Inputs Empty
-
 let makeInputsEmpty = () => {
     priceInput.value = "";
     dayDate.value = "";
@@ -59,32 +54,34 @@ let makeInputsEmpty = () => {
 }
 
 let checkValues = () => {
-    let answer;
     inputs.forEach(item => {
-        if (item.value !== "" && item.classList.contains("false-input")) {
-            item.classList.remove("false-input");
-        } else if (item.value === "") {
-            item.classList.add("false-input");
-            answer = true;
-            return;
-        }
-        answer = false;
+        item.classList.remove("false-input");
     })
-    return answer;
+
+    if (priceInput.value === "") {
+        priceInput.classList.add("false-input");
+        showInfo("لطفا مبلغ تراکنش خود را وارد نمایید");
+        return true;
+    } else if (dayDate.value === "") {
+        dayDate.classList.add("false-input");
+        showInfo("لطفا ذکر کنید که در چه روزی تراکنش صورت گرفته است");
+        return true;
+    } else if (monthDate.value === "") {
+        monthDate.classList.add("false-input");
+        showInfo("لطفا ذکر کنید که در چه ماهی تراکنش صورت گرفته است");
+        return true;
+    } else if (yearDate.value === "") {
+        yearDate.classList.add("false-input");
+        showInfo("لطفا ذکر کنید که در چه سالی تراکنش صورت گرفته است");
+        return true;
+    }
+    return false;
 }
 
-let alertForEmptyInputs = () => {
-    popup.style.display = "flex";
-    popupMassage.innerHTML = "لطفا مقادیر خواسته شده را وارد نمایید !";
-    popupBtn.addEventListener("click" , () => {
-        popup.style.display = "none";
-    })
-}
 
 // make list items
 let makeList = () => {
     if (checkValues()) {
-        alertForEmptyInputs();
         return false;
     }
     listItem = {
@@ -122,17 +119,16 @@ let makeTable = (item) => {
     document.querySelectorAll(".deleteItem").forEach(item => {
         item.addEventListener("click" , deleteItem)
     })
-    inputs.forEach(item => {
-        if (item.classList.contains("false-input")) {
-            item.classList.remove("false-input")
-        }
-    })
 }
 
 // Functions for show Information
 let showInfo = e => {
+    if (typeof e === "string") {
+        popupMassage.innerHTML = e;
+    } else {
+        popupMassage.innerHTML = e.target.dataset.value;
+    }
     popup.style.display = "flex";
-    popupMassage.innerHTML = e.target.dataset.value;
     popupBtn.addEventListener("click" , () => {
         popup.style.display = "none";
     })
@@ -196,4 +192,3 @@ let redType = () => {
 submitBtn.addEventListener("click" , makeList);
 incomeLabel.addEventListener("click" , greenType);
 costLabel.addEventListener("click" , redType);
-window.onload = getListFromLocal;
