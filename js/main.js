@@ -24,6 +24,28 @@ let typeClass = "text-success";
 let type = "درآمد";
 let listItem;
 
+// This Listeners will Alert user if they insert an unacceptable value !
+dayDate.addEventListener("blur" , e => {
+    if (e.target.value > 31 || e.target.value < 1) {
+        showInfo("مقدار وارد شده برای پارامتر روز ، مجاز نمی باشد !");
+        e.target.value = ""
+    }
+})
+
+monthDate.addEventListener("blur" , e => {
+    if (e.target.value > 12 || e.target.value < 1) {
+        showInfo("مقدار واردشده برای پارامتر ماه ، مجاز نمی باشد !");
+        e.target.value = ""
+    }
+})
+
+yearDate.addEventListener("blur" , e => {
+    if (e.target.value > 9999 || e.target.value < 1) {
+        showInfo("مقدار وارد شده برای پارامتر سال ، مجاز نمی باشد !");
+        e.target.value = ""
+    }
+})
+
 // get list from localStorage
 window.onload = () => {
     if (localStorage.getItem("Revenue_info") === null) {
