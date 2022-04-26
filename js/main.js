@@ -28,21 +28,27 @@ let listItem;
 // This Listeners will Alert user if they insert an unacceptable value !
 dayDate.addEventListener("blur" , e => {
     if (e.target.value > 31 || e.target.value < 1) {
-        showInfo("مقدار وارد شده برای پارامتر روز ، مجاز نمی باشد !");
+        showInfo(`مقدار وارد شده برای پارامتر روز ، مجاز نمی باشد !
+        مقادیر مجاز از 1 تا 31 می باشد .
+        `);
         e.target.value = ""
     }
 })
 
 monthDate.addEventListener("blur" , e => {
     if (e.target.value > 12 || e.target.value < 1) {
-        showInfo("مقدار واردشده برای پارامتر ماه ، مجاز نمی باشد !");
+        showInfo(`مقدار واردشده برای پارامتر ماه ، مجاز نمی باشد !
+        مقادیر مجاز از 1 تا 12 می باشد .
+        `);
         e.target.value = ""
     }
 })
 
 yearDate.addEventListener("blur" , e => {
-    if (e.target.value > 9999 || e.target.value < 1) {
-        showInfo("مقدار وارد شده برای پارامتر سال ، مجاز نمی باشد !");
+    if (e.target.value > 2050 || e.target.value < 1300) {
+        showInfo(`مقدار وارد شده برای پارامتر سال ، مجاز نمی باشد !
+        مقادیر مجاز از 1300 تا 2050 می باشد .
+        `);
         e.target.value = ""
     }
 })
@@ -84,6 +90,7 @@ let makeInputsEmpty = () => {
     monthDate.value = "";
     yearDate.value = "";
     informationInput.value = "";
+    showPrice.innerHTML = "--";
 }
 
 let checkValues = () => {
