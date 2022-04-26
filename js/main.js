@@ -1,20 +1,21 @@
 // define items
-let submitBtn = document.querySelector(".submitBtn");
-let inputs = document.querySelectorAll("input[type=number]")
-let priceInput = document.getElementById("price");
-let dayDate = document.getElementById("day");
-let monthDate = document.getElementById("month");
-let yearDate = document.getElementById("year");
-let informationInput = document.getElementById("information");
-let tableBody = document.querySelector("#micro-account tbody");
-let showTotalIncomes = document.querySelector("#total-incomes");
-let showTotalCosts = document.querySelector("#total-costs");
-let showAccountBalance = document.querySelector("#balance-account")
-let incomeLabel = document.getElementById("income-label");
-let costLabel = document.getElementById("cost-label");
-let popup = document.querySelector(".popup-background");
-let popupMassage = document.querySelector(".popup-background .popup .popup-massage");
-let popupBtn = document.querySelector(".popup-background .popup button");
+const submitBtn = document.querySelector(".submitBtn");
+const inputs = document.querySelectorAll("input[type=number]")
+const priceInput = document.getElementById("price");
+const dayDate = document.getElementById("day");
+const monthDate = document.getElementById("month");
+const yearDate = document.getElementById("year");
+const informationInput = document.getElementById("information");
+const tableBody = document.querySelector("#micro-account tbody");
+const showTotalIncomes = document.querySelector("#total-incomes");
+const showTotalCosts = document.querySelector("#total-costs");
+const showAccountBalance = document.querySelector("#balance-account");
+const incomeLabel = document.getElementById("income-label");
+const costLabel = document.getElementById("cost-label");
+const popup = document.querySelector(".popup-background");
+const popupMassage = document.querySelector(".popup-background .popup .popup-massage");
+const popupBtn = document.querySelector(".popup-background .popup button");
+const showPrice = document.querySelector(".showPrice .variable")
 
 // define parameters
 
@@ -43,6 +44,16 @@ yearDate.addEventListener("blur" , e => {
     if (e.target.value > 9999 || e.target.value < 1) {
         showInfo("مقدار وارد شده برای پارامتر سال ، مجاز نمی باشد !");
         e.target.value = ""
+    }
+})
+
+// this listener helps to turn the type of price to string
+
+priceInput.addEventListener("blur" , () => {
+    if(priceInput.value === "") {
+        showInfo("لطفا مبلغِ تراکنش خود را وارد کنید");
+    } else {
+        showPrice.innerHTML = `${Num2persian(priceInput.value)} تومان`
     }
 })
 

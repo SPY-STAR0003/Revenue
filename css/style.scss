@@ -297,7 +297,7 @@ header {
         width: 50%;
         @include transition;
       }
-      input:focus ,{
+      input:focus {
         width: 95%;
       }
       #choose-transaction-type {
@@ -388,6 +388,10 @@ header {
       line-height: 1.5;
     }
   }
+}
+
+.showPrice {
+  color: yellow;
 }
 
 @keyframes fade {
