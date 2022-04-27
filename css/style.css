@@ -756,7 +756,7 @@ input, textarea {
 
 .container {
   margin: auto;
-  max-width: 1320px;
+  max-width: 1400px;
   width: 100%;
 }
 
@@ -1033,11 +1033,39 @@ header div {
 }
 
 #input-result #left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 60%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  padding: 0 2rem;
   background-color: #A63EC5;
 }
 
-#input-result #left .show-totals .total {
-  letter-spacing: 2px;
+#input-result #left .totals-number {
+  margin: 0 auto;
+}
+
+#input-result #left .totals-number .show-totals {
+  width: 33%;
+}
+
+#input-result #left .chart {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+#input-result #left .chart canvas {
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: .5rem;
 }
 
 #show-micro-account {

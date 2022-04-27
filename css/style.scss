@@ -117,7 +117,7 @@ input,textarea {
 
 .container {
   margin: auto;
-  max-width: 1320px;
+  max-width: 1400px;
   width: 100%;
 }
 
@@ -331,11 +331,27 @@ header {
     }
   }
   #left {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: space-evenly;
+    padding: 0 2rem;
     background-color: $purple;
-    .show-totals {
-        .total {
-          letter-spacing: 2px;
-        }
+    .totals-number {
+      margin: 0 auto;
+      .show-totals {
+        width: 33%;
+      }
+    }
+    .chart {
+      margin-top: 1rem;
+      width: 100%;
+      canvas {
+        width: 100%;
+        padding: 1rem;
+        background-color: white;
+        border-radius: .5rem;
+      }
     }
   }
 }
