@@ -1,4 +1,4 @@
-# Revenue_v1.0.0
+# Revenue
 
 This project's idea was from HesamMousavi and his team in Roocket.
 And I'm only a Noobie programmer.

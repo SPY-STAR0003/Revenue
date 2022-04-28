@@ -51,45 +51,8 @@ const makeInputsEmpty = () => {
     showPrice.innerHTML = "--";
 }
 
-const checkValues = () => {
-    inputs.forEach(item => {
-        item.classList.remove("false-input");
-    })
-
-    if (priceInput.value === "") {
-        priceInput.classList.add("false-input");
-        showInfo("لطفا مبلغ تراکنش خود را وارد نمایید");
-        return true;
-    } else if (dayDate.value === "") {
-        dayDate.classList.add("false-input");
-        showInfo("لطفا ذکر کنید که در چه روزی تراکنش صورت گرفته است");
-        return true;
-    } else if (monthDate.value === "") {
-        monthDate.classList.add("false-input");
-        showInfo("لطفا ذکر کنید که در چه ماهی تراکنش صورت گرفته است");
-        return true;
-    } else if (yearDate.value === "") {
-        yearDate.classList.add("false-input");
-        showInfo("لطفا ذکر کنید که در چه سالی تراکنش صورت گرفته است");
-        return true;
-    }
-    return false;
-}
-
-
 // make transactionsList items
 const makeList = () => {
-    if (checkValues()) {
-        return false;
-    }
-    transactionsListItem = {
-        numberItem : ++i,
-        price : priceInput.value,
-        date : `${yearDate.value}/${monthDate.value}/${dayDate.value}`,
-        type,
-        info : informationInput.value
-    }
-    transactionsList.push(transactionsListItem);
     makeTable(transactionsListItem);
     let accountBalance = totals(transactionsList);
     addData(myChart , transactionsListItem.date , accountBalance);
@@ -97,67 +60,6 @@ const makeList = () => {
     updateLocalstorage(transactionsList);
 }
 
-// make table rows
-const makeTable = (item) => {
-    if (item.type === "هزینه") colorOfTransactionType = "text-danger";
-    tableBody.insertAdjacentHTML("beforeend" , `
-        <tr id="${item.numberItem}">
-            <td> ${item.numberItem} </td>
-            <td> ${item.price} </td>
-            <td> ${item.date} </td>
-            <td class="${colorOfTransactionType}"> ${item.type} </td>
-            <td>
-                <button class="showInfo btn primaryBtn-outline" data-value="${item.info}"> پیش نمایش </button>
-                <button class="deleteItem btn dangerBtn-outline"> حذف </button>
-            </td>
-        </tr>
-    `)
-    document.querySelectorAll(".showInfo").forEach(item => {
-        item.addEventListener("click" , showInfo)
-    })
-    document.querySelectorAll(".deleteItem").forEach(item => {
-        item.addEventListener("click" , deleteItem)
-    })
-}
-
-// Functions for show Information
-const showInfo = e => {
-    if (typeof e === "string") {
-        popupMassage.innerHTML = e;
-    } else {
-        popupMassage.innerHTML = e.target.dataset.value;
-    }
-    popup.style.display = "flex";
-    popupBtn.addEventListener("click" , () => {
-        popup.style.display = "none";
-    })
-}
-
-// Functions for delete Rows
-const deleteItem = e => {
-    let itemNumber;
-    transactionsList.forEach(transactionsItem => {
-        if (transactionsItem.numberItem === Number(e.target.parentElement.parentElement.id)) {
-            chartValuesListUpdate(transactionsItem)
-            itemNumber = transactionsItem.numberItem;
-            transactionsList = transactionsList.filter(row => row.numberItem !== Number(e.target.parentElement.parentElement.id))
-        }
-    })
-    updateList(transactionsList,itemNumber)
-}
-
-const updateList = (transactionsList , itemNumber) => {
-    tableBody.innerHTML = "";
-    --i;
-    transactionsList.forEach(item => {
-        if (item.numberItem >= itemNumber) {
-            item.numberItem = item.numberItem - 1;
-        }
-        makeTable(item)
-    })
-    totals(transactionsList)
-    updateLocalstorage(transactionsList)
-}
 
 const chartValuesListUpdate = transactionsItem => {
     // first we make chart empty ...
@@ -192,41 +94,6 @@ const chartValuesListUpdate = transactionsItem => {
 
     updateLocalstorage(transactionsList)
 }
-
-// this function will define totals ... for expamle = totalincomes
-const totals = transactionsList => {
-    let totalInComes = 0;
-    let totalCosts = 0;
-    transactionsList.forEach(item => {
-        if (item.type === "درآمد") {
-            totalInComes += Number(item.price);
-        } else {
-            totalCosts += Number(item.price);
-        }
-    })
-    let accountBalance = totalInComes - totalCosts;
-    showTotalIncomes.innerHTML = totalInComes;
-    showTotalCosts.innerHTML = totalCosts;
-    showAccountBalance.innerHTML = accountBalance;
-    return accountBalance;
-    // accountBalance will return to help create chartValues ...
-}
-
-// this functions will define the transaction's type ... GREEN OR RED ???
-const greenType = () => {
-    colorOfTransactionType = "text-success";
-    type = "درآمد";
-}
-
-const redType = () => {
-    colorOfTransactionType = "text-danger";
-    type = "هزینه";
-}
-
-// define listeners ....
-submitBtn.addEventListener("click" , makeList);
-incomeLabel.addEventListener("click" , greenType);
-costLabel.addEventListener("click" , redType);
 
 // This Listeners will Alert user if they insert an unacceptable value !
 dayDate.addEventListener("blur" , e => {
@@ -305,31 +172,3 @@ const addData = (chart, label, data) => {
     chart.update();
 }
 
-const myChart = new Chart(
-    document.querySelector('.chart canvas'),
-    {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'مانده حساب شما ',
-                backgroundColor: '#313552',
-                borderColor: '#A63EC5',
-                data: [],
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        // This more specific font property overrides the global property
-                        font: {
-                            size: 14,
-                            family : "Vazir , serif",
-                        }
-                    }
-                }
-            }
-        }
-    }
-);
