@@ -1,5 +1,6 @@
 import { Chart , registerables  } from "chart.js";
 import * as Properties from "./Properties";
+import LocalStorageEdit from "./LocalStorageEdit";
 
 
 class UpdateChart {
@@ -13,51 +14,50 @@ class UpdateChart {
         myChart.update();
     }
 
+    static removeData(myChart) {
+        myChart.data.labels.pop();
+        myChart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        myChart.update();
+    }
+
     static editChart(transactionsItem) {
-        // first we make chart empty ...
+        // first : we make chart empty !
         Properties.chartValues.forEach(() => {
-            UpdateChart.removeData(Properties.myChart)
+            UpdateChart.removeData(Properties.myChart);
         })
     
-        // if isTrue be True so after delete a row we have to decrease all values after that !!! 
+        // second : If the type has been added to the sum value then know we've to decrese the sum ! 
         let isTrue = transactionsItem.type === "درآمد" ? true : false;
     
+        // we've to find the deleted item in chartValues !
         let deletedIndex = Properties.chartValues.findIndex(item => {
             return item.label === transactionsItem.date;
         })
     
         Properties.chartValues.forEach((item , index) => {
             if(index > deletedIndex && isTrue) {
-                item.data -= Number(transactionsItem.price)
+                item.data -= Number(transactionsItem.price);
             } else if(index > deletedIndex && !isTrue) {
-                item.data += Number(transactionsItem.price)
+                item.data += Number(transactionsItem.price);
             }
         })
         
-        console.log(Properties.chartValues)
         Properties.chartValues.forEach(chartItem => {
             if (chartItem.label === transactionsItem.date) {
-                Properties.changeChartValues(Properties.chartValues.filter(item => item.label !== transactionsItem.date))
+                Properties.changeChartValues(Properties.chartValues.filter(item => {
+                    return item.label !== transactionsItem.date;
+                }))
             }
         })
-        console.log(Properties.chartValues)
-
     
+        // third : now we'll update the chart again !
         Properties.chartValues.forEach(item => {
             UpdateChart.updateChart(Properties.myChart , item.label , item.data);
         })
-
-        console.log(Properties.chartValues)
-    
-        // updateLocalstorage(transactionsList)
-    }
-    
-    static removeData(chart) {
-        chart.data.labels.pop();
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        chart.update();
+        
+        new LocalStorageEdit();
     }
 }
 

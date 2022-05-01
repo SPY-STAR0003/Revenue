@@ -2,7 +2,9 @@ import ShowPopup from "./ShowPopup";
 import DeleteOneTransaction from "./DeleteOneTransaction";
 import CalculateTotalPrices from "./CalculateTotalPrices";
 import UpdateChart from "./UpdateChart";
-import * as Properties from "./Properties"
+import * as Properties from "./Properties";
+import LocalStorageEdit from "./LocalStorageEdit";
+import CheckInputs from "./CheckValues";
 
 
 class MakeTransactionsList {
@@ -11,6 +13,9 @@ class MakeTransactionsList {
     }
 
     makeTransactionsListItem(props) {
+        // Row's Number will start with number 1 !
+        // & transactionList items (length) is equals with Row's Item !
+        // & because we add transactions so we write ++ before that !
         let transactionsListItem = {
             rowNumber : ++[...props.transactionsList].length,
             price : props.priceInput.value,
@@ -19,11 +24,17 @@ class MakeTransactionsList {
             info : props.informationInput.value
         }
         props.transactionsList.push(transactionsListItem);
-        MakeTransactionsList.makeTransactionsTable(props,transactionsListItem)
+        // allowChangeChart will help to system to understand...
+        // ... we're deleting or adding !
+        // if we're adding that is True !
+        Properties.changeAllowChangeChart(true);
+        MakeTransactionsList.makeTransactionsTable(props,transactionsListItem);
+        CheckInputs.makeInputsEmpty()
+        new LocalStorageEdit();
     }
 
     static makeTransactionsTable(props , transactionsListItem) {
-        if (transactionsListItem.type === "هزینه") props.colorOfTransactionType = "text-danger";
+        if (transactionsListItem.type === "هزینه") props.makeTypeRed();
         props.tableBody.insertAdjacentHTML("beforeend" , `
             <tr id="${transactionsListItem.rowNumber}">
                 <td> ${transactionsListItem.rowNumber} </td>
@@ -42,9 +53,12 @@ class MakeTransactionsList {
         document.querySelector(`#deleteBtn${transactionsListItem.rowNumber}`).addEventListener("click" , e => {
             new DeleteOneTransaction(e)
         })
+        // account Balance will send for Chart to make a chart !
         let accountBalance = CalculateTotalPrices.calculteTotals(props.transactionsList);
-        UpdateChart.updateChart(Properties.myChart ,transactionsListItem.date , accountBalance);
-
+        if (Properties.allowChangeChart) {
+            UpdateChart.updateChart(Properties.myChart ,transactionsListItem.date , accountBalance);
+            Properties.changeAllowChangeChart(false);
+        }
     }
 }
 
